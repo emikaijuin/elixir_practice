@@ -321,7 +321,7 @@ defmodule LanguageProcessor do
     "the"
   ]
 
-  def run(string) do
+  def main(string) do
     string
     |> String.split()
     |> Enum.map(fn word -> String.downcase(word) end)
@@ -358,4 +358,4 @@ defmodule LanguageProcessor do
   end
 end
 
-IO.inspect(LanguageProcessor.run("Whether you believe it or not it isn't the biggest issue"))
+IO.inspect(LanguageProcessor.main("Whether you believe it or not it isn't the biggest issue"))
