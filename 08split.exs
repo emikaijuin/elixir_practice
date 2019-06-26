@@ -334,9 +334,10 @@ defmodule LanguageProcessor do
 
   def remove_stop_words([word | remaining], acc) do
     acc =
-      cond do
-        word in @stop_words -> acc
-        true -> acc ++ [word]
+      if word in @stop_words do
+        acc
+      else
+        acc ++ [word]
       end
 
     remove_stop_words(remaining, acc)
@@ -347,12 +348,10 @@ defmodule LanguageProcessor do
 
   def count_frequency([word | remaining], freq) do
     freq =
-      case Map.fetch(freq, word) do
-        {:ok, x} ->
-          Map.update(freq, word, x + 1)
-
-        :error ->
-          Map.put(freq, word, 1)
+      if Map.has_key?(freq, word) do
+        Map.update(freq, word, freq[word] + 1)
+      else
+        Map.put(freq, word, 1)
       end
 
     count_frequency(remaining, freq)
